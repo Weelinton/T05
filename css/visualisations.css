@@ -11,22 +11,22 @@
 }
 
 .axis-label {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    fill: #5a3e2b;
-    /* Dark brown */
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    fill: #42536b;
 }
 
 .axis-title {
-    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    fill: #3f2f28;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    fill: #172b4d;
 }
 
 #scatterplot .scatter-grid line {
-    stroke: #e5eaf0;
-    stroke-opacity: 0.8;
+    stroke: #dce5f1;
+    stroke-opacity: 0.75;
 }
 
 #scatterplot .scatter-grid path {
@@ -35,20 +35,26 @@
 
 .chart-box {
     box-sizing: border-box;
-    background: white;
-    border: 1px solid #e5d7c8;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    border: 1px solid #dce4ef;
+    border-radius: 14px;
+    padding: 18px 18px 10px;
     width: 100%;
-    height: 440px;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     overflow: hidden;
 }
 
+#scatterplot.chart-box {
+    margin-bottom: 0;
+}
+
 .chart-title {
+    order: 1;
     flex: 0 0 auto;
     width: 100%;
     margin: 0 0 10px;
@@ -56,16 +62,73 @@
     text-align: center;
 }
 
+.chart-commentary {
+    order: 2;
+    flex: 0 0 auto;
+    margin: 0 0 8px;
+    color: #52647d;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.dashboard-conclusion {
+    margin-top: 24px;
+    padding: 18px 22px;
+    border: 1px solid #c8d6e2;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: none;
+}
+
+.dashboard-conclusion h2 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.dashboard-conclusion p {
+    margin: 0;
+    color: #52647d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 .chart-box > svg,
 .chart-box > .responsive-svg-container {
+    order: 3;
     width: 100%;
     max-width: 100%;
 }
 
 .chart-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+    gap: 20px;
+}
+
+@media screen and (max-width: 760px) {
+    .chart-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.chart-box .domain,
+.chart-box .tick line {
+    stroke: #c7d2e0;
+}
+
+.chart-box .tick text {
+    fill: #42536b;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+}
+
+#linechart .grid line {
+    stroke: #e3eaf3;
+    stroke-opacity: 0.9;
 }
 
 #scatterplot svg,

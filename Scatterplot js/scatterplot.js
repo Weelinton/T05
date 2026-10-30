@@ -30,7 +30,10 @@ const drawScatterplot = (data) => {
 
     const colorScale = d3.scaleOrdinal()
         .domain(uniqueTechs)
-        .range(d3.schemeCategory10);
+        .range(uniqueTechs.map(tech =>
+            tech === "LCD" ? "#0072b2" :
+                tech === "OLED" ? "#cc79a7" : "#e69f00"
+        ));
 
     innerChartS.append("g")
         .attr("class", "scatter-grid")
@@ -44,23 +47,18 @@ const drawScatterplot = (data) => {
             .tickSize(-innerWidth)
             .tickFormat(""));
 
-    const jitteredData = data.map((datum, index) => ({
-        ...datum,
-        plottedStar: Math.max(
-            0,
-            Math.min(xExtent[1], datum.star + (((index * 37) % 101) / 100 - 0.5) * 0.1)
-        )
-    }));
-
     // T06-2 Step 2.5 Draw the circles
     innerChartS.selectAll("circle")
-        .data(jitteredData)
+        .data(data)
         .join("circle")
-        .attr("cx", d => xScaleS(d.plottedStar))
+        .attr("class", "scatter-point")
+        .attr("cx", d => xScaleS(d.star))
         .attr("cy", d => yScaleS(d.energyConsumption))
         .attr("r", 4)
         .attr("fill", d => colorScale(d.screenTech))
-        .attr("opacity",0.5);
+        .attr("opacity", 0.5)
+        .append("title")
+        .text(d => `${d3.format(".2f")(d.energyConsumption)} kWh · ${d3.format(".2f")(d.star)} stars`);
 
     // T06-2 Step 2.6 Add bottom and left axis
     /// Add axes
@@ -83,7 +81,7 @@ const drawScatterplot = (data) => {
     svg.append("text")
         .text("Energy Consumption (kWh/year)")
         .attr("text-anchor", "middle")
-        .attr("transform", `translate(20, ${margin.top + innerHeight / 2}) rotate(-90)`)
+        .attr("transform", `translate(12, ${margin.top + innerHeight / 2}) rotate(-90)`)
         .attr("class", "axis-title");
 
     // T06-2 Step 2.7 Add legend

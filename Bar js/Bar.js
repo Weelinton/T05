@@ -32,8 +32,14 @@ const drawBarChart = data => {
 
     svg.append("text")
         .attr("class", "axis-title")
+        .attr("text-anchor", "middle")
+        .attr("transform", `translate(18,${barMargin.top + innerHeight / 2}) rotate(-90)`)
+        .text("Screen Technology");
+
+    svg.append("text")
+        .attr("class", "axis-title")
         .attr("x", barMargin.left + innerWidth / 2)
         .attr("y", barHeight - 38)
         .attr("text-anchor", "middle")
-        .text("Mean annual energy consumption (kWh/year)");
+        .text("Mean Annual Energy Consumption (kWh/year)");
 };

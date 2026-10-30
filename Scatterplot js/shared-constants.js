@@ -6,5 +6,5 @@ const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 
 let innerChartS; // Declare innerChartS variable for scatterplot
-const tooltipWidth = 160; // Width of the tooltip
+const tooltipWidth = 220; // Width of the tooltip
 const tooltipHeight = 50; // Height of the tooltip

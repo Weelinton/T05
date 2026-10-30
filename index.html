@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- Make the page render correctly on mobile and desktop screens. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive D3 Chart</title>
+    <title>TV Energy Consumption Dashboard</title>
     <!-- Load the shared page layout and chart-specific styles. -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/visualisations.css">
@@ -14,34 +14,44 @@
 <body>
     <!-- Identify the subject of the visualisation. -->
     <header>
-        <h1>TV Energy Consumption</h1>
+        <h1>TV Energy Consumption In Australia</h1>
     </header>
 
     <!-- Present the chart title, filters, charts, and data attribution. -->
     <main>
         <div>
-            <h1>Energy Consumption for different TV screen types and sizes</h1>
-            <p>TV's vary considerably in energy consumption.</p>
+            <p>This dashboard explores the relationship between screen technology, star ratings, and annual energy use across 587 TV models available in Australia, along with the Australian wholesale electricity prices from 1998 to 2024.</p>
+                
             <div class="chart-grid">
                 <div id="scatterplot" class="responsive-svg-container chart-box">
-                    <h2 class="chart-title">Star Rating vs. Energy Consumption</h2>
+                    <h2 class="chart-title">TV Model Star Rating vs. Annual Energy Consumption</h2>
+                    <p class="chart-commentary">Each dot represents one TV model, while the colour codes represent screen technology used for each TV model.
+                    </p>
                 </div>
                 <div id="donut" class="chart-box">
-                    <h2 class="chart-title">Energy Use by Screen Technology</h2>
+                    <h2 class="chart-title">Mean Annual Energy Use by Technology — All Screen Sizes</h2>
                 </div>
                 <div id="barchart" class="chart-box" aria-label="55-inch TV energy consumption bar chart">
-                    <h2 class="chart-title">Energy Use for 55-Inch TVs</h2>
+                    <h2 class="chart-title">Mean Annual Energy Use by Technology — 55-Inch TVs</h2>
                 </div>
                 <div id="linechart" class="chart-box" aria-label="Annual average Australian spot power prices">
-                    <h2 class="chart-title">Annual Average Australian Spot Power Prices</h2>
+                    <h2 class="chart-title">Australian Annual Average Wholesale Spot Price, 1998–2024</h2>
                 </div>
             </div>
+            <section class="dashboard-conclusion" aria-labelledby="conclusion-title">
+                <h2 id="conclusion-title">Key Takeaways</h2>
+                <p>It can be observed that some LCD(LED) models had the lowest star ratings and the highest energy consumption.
+                    Overall, many of the models, including models that uses LCD(LED), are clustered around 3.5-6 stars and consumes less than 1,400 kWh of energy per year.
+                    OLED has the highest mean energy consumption in both comparisons, with all screen sizes and among 55-inch TVs. The electricity-price series fluctuates over time with and with an overall increasing trend.</p>
+            </section>
         </div>
     </main>
 
     <!-- Close the page with its course and year attribution. -->
-    <footer>
-        <p>&copy; 2025 Data Visualisation Week 6</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">&copy; COS30045 2026 Weelinton ANAK JULIET PANJAI</div>
+        <div class="footer-right">Built with assistance from GenAI for starter code/content</div>
     </footer>
 
     <!-- Load D3 before the chart code, and load the CSV after its renderers. -->

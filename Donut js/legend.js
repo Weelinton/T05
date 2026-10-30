@@ -11,7 +11,7 @@ const drawDonutLegend = (svg, data, x, y) => {
         row.append("text")
             .attr("x", 14)
             .attr("y", 4)
-            .attr("fill", "#5a3e2b")
+            .attr("fill", "#42536b")
             .style("font-size", "14px")
             .text(`${item.technology} · ${d3.format(",.1f")(item.energy)} kWh/year`);
     });

@@ -3,6 +3,7 @@ const createTooltip = (data) => {
     const tooltip = innerChartS
         .append("g")
         .attr("class", "tooltip")
+        .attr("pointer-events", "none")
         .style("opacity", 0)
 
     tooltip
@@ -11,7 +12,7 @@ const createTooltip = (data) => {
         .attr("height", tooltipHeight)
         .attr("rx", 5)
         .attr("ry", 5)
-        .attr("fill", "#606464")
+        .attr("fill", "#172b4d")
         .attr("fill-opacity", 0.75);
 
     tooltip.append("text")
@@ -23,32 +24,46 @@ const createTooltip = (data) => {
         .style("font-size", "12px");
 };
 
-// Show the hovered TV's energy consumption and star rating.
+// Show the hovered TV's technology, energy consumption, and star rating.
 const handleMouseEvents = () => {
     const tooltip = innerChartS.select(".tooltip");
+    const formatTwoDecimals = d3.format(".2f");
 
-    innerChartS.selectAll("circle")
+    innerChartS.selectAll(".scatter-point")
         .on("mouseenter", (e, d) => {
-            console.log("Mouse entred circle", d);
+            innerChartS.selectAll(".scatter-point").attr("opacity", 0.25);
+            d3.select(e.currentTarget)
+                .attr("opacity", 1)
+                .attr("stroke", "#2b211b")
+                .attr("stroke-width", 1);
 
-            d3.select(".tooltip text")
-            .text(`${d.energyConsumption} kWh · ${d.star} stars`);
+            tooltip.select("text")
+                .text(`${d.screenTech} · ${formatTwoDecimals(d.energyConsumption)} kWh · ${formatTwoDecimals(d.star)} stars`);
 
-            const cx = e.target.getAttribute("cx");
-            const cy = e.target.getAttribute("cy");
+            const point = d3.select(e.currentTarget);
+            const cx = Number(point.attr("cx"));
+            const cy = Number(point.attr("cy"));
+            const x = Math.max(0, Math.min(innerWidth - tooltipWidth, cx - tooltipWidth / 2));
+            const aboveY = cy - tooltipHeight - 8;
+            const y = aboveY >= 0
+                ? aboveY
+                : Math.min(innerHeight - tooltipHeight, cy + 8);
 
-            d3.select(".tooltip")
-            .attr("transform", `translate(${cx - 0.5*tooltipWidth}, ${cy - 1.5*tooltipHeight})`)
-            .transition()
+            tooltip
+                .attr("transform", `translate(${x}, ${y})`)
+                .transition()
                 .duration(200)
                 .style("opacity", 1);
         })
 
         .on("mouseleave", (e, d) => {
-            console.log("Mouse left circle", d);
+            innerChartS.selectAll(".scatter-point")
+                .attr("opacity", 0.5)
+                .attr("stroke", null)
+                .attr("stroke-width", null);
 
-            d3.select(".tooltip")
-            .style("opacity", 0)
-            .attr("transform", `translate(0, 500)`);
+            tooltip
+                .style("opacity", 0)
+                .attr("transform", "translate(0, 500)");
         });
 };

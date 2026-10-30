@@ -25,7 +25,7 @@ const drawLineChart = data => {
     const line = d3.line()
         .x(d => x(d.year))
         .y(d => y(d.price));
-    chart.append("path")
+    const linePath = chart.append("path")
         .datum(data)
         .attr("fill", "none")
         .attr("stroke", lineChartColor)
@@ -47,7 +47,7 @@ const drawLineChart = data => {
 
     points.append("title")
         .text(d => `${d.year}: $${d3.format(",.2f")(d.price)} per MWh`);
-    attachLineChartTooltips(svg, points, lineChartWidth, lineChartHeight);
+    attachLineChartTooltips(svg, points, linePath, lineChartWidth, lineChartHeight);
 
     svg.append("text")
         .attr("class", "axis-title")
@@ -59,7 +59,7 @@ const drawLineChart = data => {
         .attr("class", "axis-title")
         .attr("transform", "rotate(-90)")
         .attr("x", -(lineChartMargin.top + innerHeight / 2))
-        .attr("y", 18)
+        .attr("y", 10)
         .attr("text-anchor", "middle")
-        .text("Average spot price ($ / MWh)");
+        .text("Average Spot Price ($ / MWh)");
 };
